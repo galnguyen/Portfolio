@@ -24,16 +24,16 @@
   <br>
   I sketched the dashboards I wanted to present before creating them to ensure all the visualizations were presented cohesively and coherently.  <br>
   <br>
-  ![image](https://github.com/galnguyen/Power-BI/assets/171650238/178b875c-65e6-4107-8536-bba4bce8d7d7)  <br>
+  ![image](https://github.com/galnguyen/Power-BI/assets/171650238/178b875c-65e6-4107-8536-bba4bce8d7d7)  
   ![image](https://github.com/galnguyen/Power-BI/assets/171650238/95f3a1dc-99d5-400b-b9aa-ecba3688530e)  <br>
-  ![image](https://github.com/galnguyen/Power-BI/assets/171650238/df00580b-3e45-4500-853c-3a108570f209) <br>
+  ![image](https://github.com/galnguyen/Power-BI/assets/171650238/df00580b-3e45-4500-853c-3a108570f209) 
   ![image](https://github.com/galnguyen/Power-BI/assets/171650238/15d3e30f-9de4-4dda-9d6b-4a36ccc38daf) <br>
   <br>
 **4. Insights and Recommendations are presented separately from this Note. Please visit my Wordpress blog to read further.** <br>
 <br>
 **5. Working files (available for download):**  <br>
-  Data: https://github.com/galnguyen/Power-BI/blob/6540a672541ddc8384d7f1b5de5aeb3d2c0728c1/AdventureWorks%20Sales.xlsx <br>
-  Power BI file: https://github.com/galnguyen/Power-BI/blob/6540a672541ddc8384d7f1b5de5aeb3d2c0728c1/AdventureWorks.pbix <br>
+  Data: https://github.com/galnguyen/Power-BI/blob/d8e4d21fb906763bb6a26b4ee2fafd7c8d563af9/AdventureWorks/AdventureWorks%20Sales.xlsx <br>
+  Power BI file: https://github.com/galnguyen/Power-BI/blob/d8e4d21fb906763bb6a26b4ee2fafd7c8d563af9/AdventureWorks/AdventureWorks.pbix <br>
   <be>
   **END.**
   
