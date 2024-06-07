@@ -33,8 +33,6 @@
 <br>
 **5. Working files (available for download):**  <br>
   Data: https://github.com/galnguyen/Power-BI/blob/d8e4d21fb906763bb6a26b4ee2fafd7c8d563af9/AdventureWorks/AdventureWorks%20Sales.xlsx <br>
-  Power BI file: https://github.com/galnguyen/Power-BI/blob/d8e4d21fb906763bb6a26b4ee2fafd7c8d563af9/AdventureWorks/AdventureWorks.pbix <br>
-  <be>
   **END.**
   
 
