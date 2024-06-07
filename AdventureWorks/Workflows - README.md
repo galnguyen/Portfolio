@@ -31,8 +31,8 @@
   <br>
 **4. Insights and Recommendations are presented separately from this Note. Please visit my Wordpress blog to read further.** <br>
 <br>
-**5. Working files (available for download):**  <br>
-  Data: https://github.com/galnguyen/Power-BI/blob/d8e4d21fb906763bb6a26b4ee2fafd7c8d563af9/AdventureWorks/AdventureWorks%20Sales.xlsx <br>
+**5. Data:**  <br>
+  https://github.com/galnguyen/Power-BI/blob/d8e4d21fb906763bb6a26b4ee2fafd7c8d563af9/AdventureWorks/AdventureWorks%20Sales.xlsx <br>
   **END.**
   
 
