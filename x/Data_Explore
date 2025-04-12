@@ -1,0 +1,6 @@
+--Industry_Select
+SELECT industry_title, COUNT(sic_code) AS count 
+FROM `bigquery-public-data.sec_quarterly_financials.sic_codes` 
+WHERE industry_title LIKE '%RENT%'
+GROUP BY 1 
+ORDER BY 2 DESC;
