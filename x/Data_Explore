@@ -4,3 +4,26 @@ FROM `bigquery-public-data.sec_quarterly_financials.sic_codes`
 WHERE industry_title LIKE '%RENT%'
 GROUP BY 1 
 ORDER BY 2 DESC;
+
+--Industry_Details
+SELECT 
+  code.industry_title, 
+  code.sic_code, 
+  name.company_name, 
+FROM `bigquery-public-data.sec_quarterly_financials.sic_codes` AS code
+INNER JOIN `bigquery-public-data.sec_quarterly_financials.quick_summary` AS name
+ON code.sic_code = name.sic
+WHERE code.industry_title LIKE '%RENTAL%'
+GROUP BY 1, 2, 3
+ORDER BY 1, 3;
+
+--Measure_Select
+SELECT 
+  measure_tag, 
+  tag_label,doc,
+  COUNT(DISTINCT(doc)) AS distinct_doc_count
+FROM `bigquery-public-data.sec_quarterly_financials.measure_tag` 
+WHERE tag_label LIKE '%capitalization%'
+GROUP BY 1, 2, 3
+ORDER BY 1;
+
