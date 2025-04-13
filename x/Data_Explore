@@ -46,3 +46,111 @@ AND fin.number_of_quarters = 4
 AND fin.fiscal_year = CAST(SUBSTR(fin.period_end_date,1,4) AS int64)
 GROUP BY 1,2,3,4,5,6
 ORDER BY 2,6;
+
+--Draft 2
+SELECT 
+  fin.company_name, 
+  fin.measure_tag,
+  fin.value, 
+  fin.units, 
+  fin.submission_number, 
+  fin.period_end_date,
+FROM `bigquery-public-data.sec_quarterly_financials.quick_summary` AS fin
+LEFT JOIN `bigquery-public-data.sec_quarterly_financials.presentation` AS report
+ON fin.submission_number = report.submission_number
+WHERE 
+fin.sic = '2080'
+AND fin.form = '10-K'
+AND fin.measure_tag LIKE 'NetIncomeLoss%'
+AND fin.fiscal_year = 2018
+AND fin.number_of_quarters = 4
+AND fin.fiscal_year = CAST(SUBSTR(fin.period_end_date,1,4) AS int64)
+GROUP BY 1,2,3,4,5,6
+ORDER BY 2,3 DESC;
+
+SELECT
+    company_name,
+    measure_tag,
+    value,
+    units,
+    period_end_date
+  FROM
+    `bigquery-public-data.sec_quarterly_financials.quick_summary`
+  WHERE
+    sic = '2911' -- Petroleum Refining
+    AND form = '10-K' -- Annual Report
+    AND measure_tag = 'Revenues'
+    AND fiscal_year = 2018
+    AND number_of_quarters = 4 -- Indicates a full year report
+    AND fiscal_year = CAST(SUBSTR(period_end_date, 1, 4) AS INT64) -- Ensure fiscal year matches the year in period end date
+  GROUP BY
+    company_name,
+    measure_tag,
+    value,
+    units,
+    period_end_date
+  ORDER BY
+    value DESC;
+
+--Revenue contribution
+WITH CompanyRevenues AS (
+    SELECT
+        company_name,
+        value AS company_revenue,
+        units,
+        fiscal_year
+    FROM
+        `bigquery-public-data.sec_quarterly_financials.quick_summary`
+    WHERE
+        sic = '2911'
+        AND form = '10-K'
+        AND measure_tag = 'Revenues'
+        AND fiscal_year = 2018
+        AND number_of_quarters = 4
+        AND fiscal_year = CAST(SUBSTR(period_end_date, 1, 4) AS INT64)
+),
+TotalRevenue AS (
+    SELECT
+        SUM(company_revenue) AS total_revenue
+    FROM
+        CompanyRevenues
+)
+SELECT
+    indiv.company_name,
+    indiv.company_revenue,
+    indiv.units,
+    indiv.fiscal_year,
+    (indiv.company_revenue / total.total_revenue) * 100 AS revenue_contribution_pct,
+    SUM((indiv.company_revenue / total.total_revenue) * 100) OVER (ORDER BY indiv.company_revenue DESC) AS accumulated_contribution_pct
+FROM
+    CompanyRevenues indiv
+CROSS JOIN
+    TotalRevenue total
+ORDER BY
+    indiv.company_revenue DESC;
+
+
+SELECT
+    company_name,
+    measure_tag,
+    value,
+    units,
+    period_end_date
+  FROM
+    `bigquery-public-data.sec_quarterly_financials.quick_summary`
+  WHERE
+    central_index_key IN (93410,34088)
+    AND form = '10-K'
+    AND fiscal_year BETWEEN 2014 AND 2018
+    AND number_of_quarters = 4
+    AND fiscal_year = CAST(SUBSTR(period_end_date, 1, 4) AS INT64)
+  GROUP BY
+    company_name,
+    measure_tag,
+    value,
+    units,
+    period_end_date
+  ORDER BY
+    company_name,
+    measure_tag,
+    period_end_date
