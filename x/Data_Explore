@@ -30,59 +30,19 @@ ORDER BY 1;
 --Draft 1
 SELECT 
   fin.company_name, 
-  fin.measure_tag, 
+  fin.measure_tag,
   fin.value, 
-  fin.submission_number, 
-  render.shortname, 
-  MAX(fin.date_accepted) AS accepted_date
-FROM `bigquery-public-data.sec_quarterly_financials.quick_summary` AS fin
-LEFT JOIN `bigquery-public-data.sec_quarterly_financials.rendering` AS render
-ON fin.submission_number = render.submission_number
-WHERE 
-    fin.company_name LIKE '%NETFLIX%'
-AND fin.form = '10-K'
-AND render.shortname LIKE '%INCOME%'
-GROUP BY 1,2,3, 4,5
-
---Draft 2 better
-SELECT 
-  fin.company_name, 
-  fin.measure_tag, 
-  fin.value, 
-  fin.submission_number, 
-  report.preferred_label, 
-  fin.period_end_date
-FROM `bigquery-public-data.sec_quarterly_financials.quick_summary` AS fin
-LEFT JOIN `bigquery-public-data.sec_quarterly_financials.presentation` AS report
-ON fin.measure_tag = report.measure_tag
-WHERE 
-    fin.company_name LIKE '%NETFLIX%'
-AND fin.form = '10-K'
-AND fin.fiscal_year = 2018
-AND report.statement = 'IS'
-AND report.presented_parenthetically IS TRUE
-AND fin.fiscal_year_end = RIGHT(fin.period_end_date,4)
-AND fin.fiscal_year = CAST(LEFT(fin.period_end_date,4) AS int64)
-GROUP BY 1,2,3, 4,5,6
-ORDER BY 2
-
---Draft 3
-SELECT 
-  fin.company_name, 
-  fin.measure_tag, 
-  fin.value, 
+  fin.units, 
   fin.submission_number, 
   fin.period_end_date,
 FROM `bigquery-public-data.sec_quarterly_financials.quick_summary` AS fin
 LEFT JOIN `bigquery-public-data.sec_quarterly_financials.presentation` AS report
-ON fin.measure_tag = report.measure_tag
+ON fin.submission_number = report.submission_number
 WHERE 
-    fin.company_name LIKE '%NETFLIX%'
+    fin.central_index_key = 1065280
 AND fin.form = '10-K'
-AND fin.fiscal_year = 2018
-AND report.presented_parenthetically IS TRUE
-AND report.statement = 'IS'
-AND fin.fiscal_year_end = RIGHT(fin.period_end_date,4)
-AND fin.fiscal_year = CAST(LEFT(fin.period_end_date,4) AS int64)
-GROUP BY 1,2,3, 4,5
-ORDER BY 2
+AND fin.fiscal_year BETWEEN 2014 AND 2018
+AND fin.number_of_quarters = 4
+AND fin.fiscal_year = CAST(SUBSTR(fin.period_end_date,1,4) AS int64)
+GROUP BY 1,2,3,4,5,6
+ORDER BY 2,6;
